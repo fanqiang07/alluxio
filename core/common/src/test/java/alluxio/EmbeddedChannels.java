@@ -13,14 +13,7 @@ package alluxio;
 
 import com.google.common.base.Preconditions;
 import com.google.common.base.Throwables;
-import io.netty.channel.Channel;
-import io.netty.channel.ChannelFuture;
-import io.netty.channel.ChannelHandler;
-import io.netty.channel.ChannelHandlerContext;
-import io.netty.channel.ChannelInboundHandlerAdapter;
-import io.netty.channel.ChannelOutboundBuffer;
-import io.netty.channel.ChannelPipeline;
-import io.netty.channel.ChannelPromise;
+import io.netty.channel.*;
 import io.netty.channel.embedded.EmbeddedChannel;
 import io.netty.util.concurrent.EventExecutorGroup;
 import io.netty.util.internal.StringUtil;
@@ -447,6 +440,31 @@ public final class EmbeddedChannels {
       @Override
       public ChannelFuture writeAndFlush(Object msg) {
         return mPipeline.writeAndFlush(msg);
+      }
+
+      @Override
+      public ChannelPromise newPromise() {
+        return mPipeline.newPromise();
+      }
+
+      @Override
+      public ChannelProgressivePromise newProgressivePromise() {
+        return mPipeline.newProgressivePromise();
+      }
+
+      @Override
+      public ChannelFuture newSucceededFuture() {
+        return mPipeline.newSucceededFuture();
+      }
+
+      @Override
+      public ChannelFuture newFailedFuture(Throwable cause) {
+        return mPipeline.newFailedFuture(cause);
+      }
+
+      @Override
+      public ChannelPromise voidPromise() {
+        return mPipeline.voidPromise();
       }
 
       @Override
